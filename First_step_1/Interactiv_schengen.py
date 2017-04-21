@@ -16,3 +16,29 @@
 Ожидается, что повторяющиеся или громоздкий код вы попробуете вынести в функции
     
 '''
+
+RESIDENCE_LIMIT = 90
+SCHENGEN_CONSTRAINT = 180
+visits = list()
+
+while True:
+    input_argument = input('Если не знает, что ввести, введите \"h\": ')
+    if input_argument == 'h':
+        print('    v - просит ввести новый визит (начало, затем конец) \n'
+              '    l - просит ввести дату следующего визита, говорит, сколько дней вы можете провести в шенгене\n'
+              '    r - просит ввести начало и конец визита, удаляет визит\n'
+              '    p - выводит текущий список визитов\n'
+              '    h - помощь\n'
+              '    e - выход\n')
+    elif input_argument == 'e':
+        print('Выход')
+        break
+    elif input_argument == 'v':
+        start_visit_date = int(input('Введите начало визита: '))
+        end_visit_date = int(input('Введите конец визита: '))
+        this_visit = list()
+        this_visit.append(start_visit_date)
+        this_visit.append(end_visit_date)
+        visits.append(this_visit)
+    elif input_argument == 'p':
+        print(visits)
