@@ -20,6 +20,13 @@ SCHENGEN_CONSTRAINT = 180
 visits = list()
 
 
+def total_days_in_eu(list_of_visit):
+    summ_of_days = 0
+    for visit in list_of_visit:
+        summ_of_days += visit[1] - visit[0] + 1
+    return summ_of_days
+
+
 def input_visit():
     start_visit_date = int(input('Введите начало визита: '))
     end_visit_date = int(input('Введите конец визита: '))
@@ -47,3 +54,11 @@ while True:
         print(visits)
     elif input_argument == 'r':
         visits.remove(input_visit())
+    elif input_argument == 'l':
+        next_visit = int(input('Введите начало следующего визита: '))
+        last_residence_limit = RESIDENCE_LIMIT - total_days_in_eu(visits)
+        last_schengen_constraint = SCHENGEN_CONSTRAINT - next_visit
+        if last_residence_limit > last_schengen_constraint:
+            print('Вы можете провести в EU {0} дней'.format(last_schengen_constraint))
+        else:
+            print('Вы можете провести в EU {0} дней'.format(last_residence_limit))
