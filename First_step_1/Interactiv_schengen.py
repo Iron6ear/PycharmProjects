@@ -28,11 +28,30 @@ def total_days_in_eu(list_of_visit):
 
 
 def input_visit():
-    start_visit_date = int(input('Введите начало визита: '))
-    end_visit_date = int(input('Введите конец визита: '))
+    try:
+        start_visit_date = int(input('Введите начало визита: '))
+    except ValueError:
+        print('Неправильно введенные данные начала визита.')
+        start_visit_date = None
+    try:
+        end_visit_date = int(input('Введите конец визита: '))
+    except ValueError:
+        print('Неправильно введенные данные конца визита.')
+        end_visit_date = None
     this_visit = list()
-    this_visit.append(start_visit_date)
-    this_visit.append(end_visit_date)
+    try:
+        if end_visit_date < start_visit_date:
+            this_visit = [None, None]
+            print('Дата начала визита позже даты конца визита.')
+        elif start_visit_date < visits[-1][-1] and end_visit_date != visits[-1][-1]:
+            this_visit = [None, None]
+            print('Дата начала визита пересекается с предыдущим визитом.')
+        else:
+            this_visit.append(start_visit_date)
+            this_visit.append(end_visit_date)
+    except IndexError:
+        this_visit.append(start_visit_date)
+        this_visit.append(end_visit_date)
     return this_visit
 
 
@@ -49,16 +68,34 @@ while True:
         print('Выход')
         break
     elif input_argument == 'v':
-        visits.append(input_visit())
+        curent_visit = input_visit()
+        if curent_visit[0] and curent_visit[1]:
+            visits.append(curent_visit)
+        else:
+            print('Визит не добавлен из-зи некорректно введенных данных.')
     elif input_argument == 'p':
         print(visits)
     elif input_argument == 'r':
         visits.remove(input_visit())
     elif input_argument == 'l':
-        next_visit = int(input('Введите начало следующего визита: '))
-        last_residence_limit = RESIDENCE_LIMIT - total_days_in_eu(visits)
-        last_schengen_constraint = SCHENGEN_CONSTRAINT - next_visit
-        if last_residence_limit > last_schengen_constraint:
-            print('Вы можете провести в EU {0} дней'.format(last_schengen_constraint))
-        else:
-            print('Вы можете провести в EU {0} дней'.format(last_residence_limit))
+        try:
+            next_visit = int(input('Введите начало следующего визита: '))
+        except ValueError:
+            print('Некорректно введена дата.')
+        try:
+            if visits[-1][-1] <= next_visit <= SCHENGEN_CONSTRAINT:
+                last_residence_limit = RESIDENCE_LIMIT - total_days_in_eu(visits)
+                last_schengen_constraint = SCHENGEN_CONSTRAINT - next_visit
+                if last_residence_limit > last_schengen_constraint:
+                    print('Вы можете провести в EU {0} дней'.format(last_schengen_constraint))
+                else:
+                    print('Вы можете провести в EU {0} дней'.format(last_residence_limit))
+            else:
+                print('Дата нового визита должна быть больше {0} и меньше {}'.format(visits[-1][-1], SCHENGEN_CONSTRAINT))
+        except IndexError:
+            if SCHENGEN_CONSTRAINT - next_visit >= RESIDENCE_LIMIT:
+                print('Вы можете провести в EU {0} дней'.format(RESIDENCE_LIMIT))
+            else:
+                print('Вы можете провести в EU {0} дней'.format(SCHENGEN_CONSTRAINT - next_visit))
+    else:
+        print('Неверно введенная команда, попробуйте еще раз.')
