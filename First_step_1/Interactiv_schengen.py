@@ -91,7 +91,7 @@ while True:
                 else:
                     print('Вы можете провести в EU {0} дней'.format(last_residence_limit))
             else:
-                print('Дата нового визита должна быть больше {0} и меньше {}'.format(visits[-1][-1], SCHENGEN_CONSTRAINT))
+                print('Дата визита должна быть больше {0} и меньше {}'.format(visits[-1][-1], SCHENGEN_CONSTRAINT))
         except IndexError:
             if SCHENGEN_CONSTRAINT - next_visit >= RESIDENCE_LIMIT:
                 print('Вы можете провести в EU {0} дней'.format(RESIDENCE_LIMIT))
