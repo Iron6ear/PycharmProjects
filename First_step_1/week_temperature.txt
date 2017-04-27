@@ -1,0 +1,6 @@
+Moskow
+-1 -2 -4 -7 0 2
+St-Petergurg
+-3 -5 -6 -5 -1 0
+Kislovodsk
+2 3 5 6 8 1
