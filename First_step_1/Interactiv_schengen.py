@@ -58,15 +58,27 @@ def input_visit():
 while True:
     input_argument = input('Если не знает, что ввести, введите \"h\": ')
     if input_argument == 'h':
-        print('    v - просит ввести новый визит (начало, затем конец) \n'
+        print('    v - просит ввести новый визит (начало, затем конец)\n'
+              '    d - загружает данные о визитах из файла\n'
               '    l - просит ввести дату следующего визита, говорит, сколько дней вы можете провести в шенгене\n'
               '    r - просит ввести начало и конец визита, удаляет визит\n'
               '    p - выводит текущий список визитов\n'
               '    h - помощь\n'
               '    e - выход\n')
     elif input_argument == 'e':
+        with open('visits.txt', 'w') as file:
+            for visit in visits:
+                file.write('{0} {1}\n'.format(visit[0], visit[1]))
         print('Выход')
         break
+    elif input_argument == 'd':
+        with open('visits.txt') as file:
+            for line in file:
+                a = line.split()
+                b = [None, None]
+                b[0] = int(a[0])
+                b[1] = int(a[1])
+                visits.append(b)
     elif input_argument == 'v':
         curent_visit = input_visit()
         if curent_visit[0] and curent_visit[1]:
