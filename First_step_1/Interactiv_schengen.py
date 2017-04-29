@@ -22,8 +22,8 @@ visits = list()
 
 def total_days_in_eu(list_of_visit):
     summ_of_days = 0
-    for visit in list_of_visit:
-        summ_of_days += visit[1] - visit[0] + 1
+    for one_visit in list_of_visit:
+        summ_of_days += one_visit[1] - one_visit[0] + 1
     return summ_of_days
 
 
@@ -38,7 +38,17 @@ def input_visit():
     except ValueError:
         print('Неправильно введенные данные конца визита.')
         end_visit_date = None
+    return [start_visit_date, end_visit_date]
+
+
+def visits_validation(one_visit):
     this_visit = list()
+    start_visit_date = one_visit[0]
+    end_visit_date = one_visit[1]
+    for visitus in visits:
+        if not visitus[0] or not visitus[1]:
+            visits.remove([visitus[0], visitus[1]])
+            print('Удален некорректный визит.')
     try:
         if end_visit_date < start_visit_date:
             this_visit = [None, None]
@@ -78,9 +88,9 @@ while True:
                 b = [None, None]
                 b[0] = int(a[0])
                 b[1] = int(a[1])
-                visits.append(b)
+                visits.append(visits_validation(b))
     elif input_argument == 'v':
-        curent_visit = input_visit()
+        curent_visit = visits_validation(input_visit())
         if curent_visit[0] and curent_visit[1]:
             visits.append(curent_visit)
         else:
