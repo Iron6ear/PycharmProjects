@@ -1,0 +1,10 @@
+name;sea;schengen;average_temperature;currency_rate;day_price
+Thailand;True;False;30;1.8;111
+Hungary;False;True;10;0.3;800
+Germany;True;True;5;20;15
+Japan;True;False;15;0.61;200
+Poland;False;True;7;0.1;1000
+Spain;True;True;20;2;95
+Russia;True;False;-6;0.08;2000
+Greek;True;True;21;0.1;1200
+Afghanistan;False;False;32;0.01;999

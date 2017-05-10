@@ -1,14 +1,14 @@
-countries = {
-    'Thailand': {'sea': True, 'schengen': False, 'average_temperature': 30, 'currency_rate': 1.8, 'day_price': 111},
-    'Hungary': {'sea': False, 'schengen': True, 'average_temperature': 10, 'currency_rate': 0.3, 'day_price': 800},
-    'Germany': {'sea': True, 'schengen': True, 'average_temperature': 5, 'currency_rate': 20, 'day_price': 15},
-    'Japan': {'sea': True, 'schengen': False, 'average_temperature': 15, 'currency_rate': 0.61, 'day_price': 200},
-    'Poland': {'sea': False, 'schengen': True, 'average_temperature': 7, 'currency_rate': 0.1, 'day_price': 1000},
-    'Spain': {'sea': True, 'schengen': True, 'average_temperature': 20, 'currency_rate': 2, 'day_price': 95},
-    'Russia': {'sea': True, 'schengen': False, 'average_temperature': -6, 'currency_rate': 0.08, 'day_price': 2000},
-    'Greek': {'sea': True, 'schengen': True, 'average_temperature': 21, 'currency_rate': 0.1, 'day_price': 1200},
-    'Afghanistan': {'sea': False, 'schengen': False, 'average_temperature': 32, 'currency_rate': 0.01, 'day_price': 999}
-}
+import csv
+countries = dict()
+
+with open('countries.csv') as csv_file:
+    reader = csv.DictReader(csv_file, delimiter=';')
+    for row in reader:
+        countries[row['name']] = {'sea': bool(row['sea']),
+                                  'schengen': bool(row['schengen']),
+                                  'average_temperature': float(row['average_temperature']),
+                                  'currency_rate': float(row['currency_rate']),
+                                  'day_price': float(row['day_price'])}
 
 schengen_countries = set()
 sea_countries = set()
@@ -36,7 +36,9 @@ for country_name in sea_schengen_countries:
 super_countries = set()
 
 for country_name, propertys in countries.items():
-    if (propertys['sea']) and (propertys['average_temperature'] > 17 or propertys['schengen']) and (propertys['day_price']*30 < money_amount/propertys['currency_rate']):
+    if (propertys['sea']) \
+            and (propertys['average_temperature'] > 17 or propertys['schengen'])\
+            and (propertys['day_price']*30 < money_amount/propertys['currency_rate']):
         super_countries.add(country_name)
 
 print(super_countries)
