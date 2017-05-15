@@ -1,3 +1,5 @@
+# __file__ содержит реальное расположение скрипта
+
 import os.path
 import codecs
 
