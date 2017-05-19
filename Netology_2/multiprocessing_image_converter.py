@@ -27,7 +27,7 @@ def main():
     with Pool(4) as p:
         p.map(resize_image, list_of_image('Source'))
     end = datetime.datetime.now()
-    print('Time for operations with files is {0} second'.format((end-start).total_seconds()))
+    print('Time for operations with files is {0:0.1f} second'.format((end-start).total_seconds()))
 
 if __name__ == '__main__':
     main()
