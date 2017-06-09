@@ -16,3 +16,8 @@
 # https://www.python.org/download/releases/2.3/mro/
 # https://habrahabr.ru/post/62203/
 
+TOKEN = '66be9c9a14fb43a78014660a81e241e6'
+
+class A():
+    def __init__(self, TOKEN):
+        self.token = TOKEN
